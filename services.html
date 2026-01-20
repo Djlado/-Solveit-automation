@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - Mr Solveit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-container">
+      <div class="nav-brand">Mr Solveit</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <h1>Automation Services</h1>
+      <p class="hero-subtext">Explore automation solutions designed to eliminate manual work and scale your operations.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW SECTION -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>Services Overview</h2>
+        <p>We offer a range of automation services tailored to different business needs. Select the service that best matches your challenge, or apply with a custom automation request.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section>
+    <div class="container">
+      <div class="grid grid-3">
+        <!-- Business Process Automation -->
+        <div class="card">
+          <h3>Business Process Automation</h3>
+          <p>Streamline complex workflows by automating multi-step processes across departments. Reduce manual handoffs, minimize errors, and improve efficiency.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Business Process Automation">Apply</button>
+        </div>
+
+        <!-- AI Assistants -->
+        <div class="card">
+          <h3>AI Assistants</h3>
+          <p>Implement intelligent assistants to handle customer interactions, data processing, and routine inquiries. Enhance response times and reduce support burden.</p>
+          <button class="btn btn-block scroll-to-form" data-service="AI Assistants">Apply</button>
+        </div>
+
+        <!-- Google Sheets Automation -->
+        <div class="card">
+          <h3>Google Sheets Automation</h3>
+          <p>Automate data collection, consolidation, and reporting in Google Sheets. Connect data sources, eliminate manual entry, and create dynamic dashboards.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Google Sheets Automation">Apply</button>
+        </div>
+
+        <!-- Email Automation -->
+        <div class="card">
+          <h3>Email Automation</h3>
+          <p>Build sophisticated email workflows for marketing, customer engagement, and notifications. Trigger emails based on actions, segment audiences, and personalize communication.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Email Automation">Apply</button>
+        </div>
+
+        <!-- Content Systems -->
+        <div class="card">
+          <h3>Content Systems</h3>
+          <p>Automate content creation workflows, publishing pipelines, and distribution. Coordinate across teams and ensure consistent content delivery at scale.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Content Systems">Apply</button>
+        </div>
+
+        <!-- Custom Automation -->
+        <div class="card">
+          <h3>Custom Automation</h3>
+          <p>Have a unique challenge that doesn't fit the above categories? We build custom automation solutions tailored to your specific business needs.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Custom Automation">Apply</button>
+        </div>
+
+        <!-- CRM Automation -->
+        <div class="card">
+          <h3>CRM Automation</h3>
+          <p>Automate customer relationship management tasks including lead capture, follow-ups, and pipeline management. Keep your CRM data clean and actionable.</p>
+          <button class="btn btn-block scroll-to-form" data-service="CRM Automation">Apply</button>
+        </div>
+
+        <!-- Data Integration -->
+        <div class="card">
+          <h3>Data Integration</h3>
+          <p>Connect disconnected systems and automate data synchronization. Ensure data flows seamlessly between applications without manual effort.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Data Integration">Apply</button>
+        </div>
+
+        <!-- Workflow Optimization -->
+        <div class="card">
+          <h3>Workflow Optimization</h3>
+          <p>Audit your current workflows and identify automation opportunities. We map your processes and recommend solutions to reduce bottlenecks and delays.</p>
+          <button class="btn btn-block scroll-to-form" data-service="Workflow Optimization">Apply</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION FORM SECTION -->
+  <section id="form-section">
+    <div class="container">
+      <div class="form-container">
+        <div class="form-title">
+          <h2>Apply for Automation</h2>
+          <p>Tell us about your automation needs. The more detail you provide, the better we can assess your challenge.</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <strong>Success!</strong> Your application has been submitted. We'll review your request and get back to you soon.
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="automationForm">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <!-- Automation Type -->
+          <div class="form-group">
+            <label for="automationType">Automation Type *</label>
+            <select id="automationType" name="automationType" required>
+              <option value="">-- Select a Service --</option>
+              <option value="Business Process Automation">Business Process Automation</option>
+              <option value="AI Assistants">AI Assistants</option>
+              <option value="Google Sheets Automation">Google Sheets Automation</option>
+              <option value="Email Automation">Email Automation</option>
+              <option value="Content Systems">Content Systems</option>
+              <option value="CRM Automation">CRM Automation</option>
+              <option value="Data Integration">Data Integration</option>
+              <option value="Workflow Optimization">Workflow Optimization</option>
+              <option value="Custom Automation">Custom Automation</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Problem Description -->
+          <div class="form-group">
+            <label for="problemDescription">Describe Your Challenge *</label>
+            <textarea id="problemDescription" name="problemDescription" placeholder="What problem are you trying to solve? What's your current workflow? What's causing friction?" required></textarea>
+          </div>
+
+          <!-- Budget (Optional) -->
+          <div class="form-group">
+            <label for="budget">Budget Range (Optional)</label>
+            <input type="text" id="budget" name="budget" placeholder="e.g., $5,000 - $15,000">
+          </div>
+
+          <!-- Additional Notes (Optional) -->
+          <div class="form-group">
+            <label for="additionalNotes">Additional Notes (Optional)</label>
+            <textarea id="additionalNotes" name="additionalNotes" placeholder="Any other details that might help us understand your needs."></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-block form-submit">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">Mr Solveit</div>
+      <p class="footer-text">Your data is handled securely and confidentially. We prioritize the privacy and security of your business information.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
