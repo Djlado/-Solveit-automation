@@ -52,10 +52,12 @@ async function sendChatMessage() {
       setTimeout(() => {
         addMessageToChat('Thank you for your message. I\'ll process your request and get back to you with insights about your automation needs.', 'bot');
       }, 500);
+    } else {
+      addMessageToChat(`Error: Server returned ${response.status} ${response.statusText}`, 'bot');
     }
   } catch (error) {
     console.error('Error sending chat message:', error);
-    addMessageToChat('Sorry, there was an error processing your message. Please try again.', 'bot');
+    addMessageToChat(`Sorry, there was an error: ${error.message}. Check that n8n webhook is running.`, 'bot');
   }
 }
 
@@ -134,11 +136,11 @@ if (automationForm) {
           document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        showError('Failed to submit the form. Please try again.');
+        showError(`Failed to submit: Server returned ${response.status} ${response.statusText}. Check n8n webhook status.`);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      showError('An error occurred while submitting the form. Please try again.');
+      showError(`Error: ${error.message}. Is n8n webhook URL correct and running?`);
     }
   });
 }
