@@ -41,36 +41,23 @@ async function sendChatMessage() {
     const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(chatData),
-      mode: 'cors' // Explicitly set CORS mode
+      body: JSON.stringify(chatData)
     });
 
-    if (!response.ok) {
-      throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+    if (response.ok) {
+      // Message sent successfully
+      // Optionally add a bot response
+      setTimeout(() => {
+        addMessageToChat('Thank you for your message. I\'ll process your request and get back to you with insights about your automation needs.', 'bot');
+      }, 500);
+    } else {
+      addMessageToChat(`Error: Server returned ${response.status} ${response.statusText}`, 'bot');
     }
-
-    const data = await response.json();
-    
-    // Add bot response
-    setTimeout(() => {
-      addMessageToChat('Thank you for your message. I\'ll process your request and get back to you with insights about your automation needs.', 'bot');
-    }, 500);
-
   } catch (error) {
     console.error('Error sending chat message:', error);
-    
-    // More specific error messages
-    let errorMsg = 'Sorry, there was an error sending your message. ';
-    if (error.message.includes('Failed to fetch')) {
-      errorMsg += 'Please check your internet connection or contact support. (CORS/Network error)';
-    } else {
-      errorMsg += error.message;
-    }
-    
-    addMessageToChat(errorMsg, 'bot');
+    addMessageToChat(`Sorry, there was an error: ${error.message}. Check that n8n webhook is running.`, 'bot');
   }
 }
 
@@ -110,8 +97,7 @@ if (automationForm) {
       problemDescription: document.getElementById('problemDescription').value.trim(),
       budget: document.getElementById('budget').value.trim(),
       additionalNotes: document.getElementById('additionalNotes').value.trim(),
-      submittedAt: new Date().toISOString(),
-      type: 'form' // Add type to distinguish from chat
+      submittedAt: new Date().toISOString()
     };
 
     // Validate required fields
@@ -134,41 +120,27 @@ if (automationForm) {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData),
-        mode: 'cors' // Explicitly set CORS mode
+        body: JSON.stringify(formData)
       });
 
-      if (!response.ok) {
-        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+      if (response.ok) {
+        // Success
+        showSuccess();
+        automationForm.reset();
+        automationTypeSelect.value = ''; // Reset dropdown
+        
+        // Scroll to success message
+        setTimeout(() => {
+          document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        showError(`Failed to submit: Server returned ${response.status} ${response.statusText}. Check n8n webhook status.`);
       }
-
-      const result = await response.json();
-      
-      // Success
-      showSuccess();
-      automationForm.reset();
-      automationTypeSelect.value = ''; // Reset dropdown
-      
-      // Scroll to success message
-      setTimeout(() => {
-        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-
     } catch (error) {
       console.error('Error submitting form:', error);
-      
-      // More specific error messages
-      let errorMsg = 'Failed to submit form. ';
-      if (error.message.includes('Failed to fetch')) {
-        errorMsg += 'Connection error - please check if n8n is running and CORS is enabled.';
-      } else {
-        errorMsg += error.message;
-      }
-      
-      showError(errorMsg);
+      showError(`Error: ${error.message}. Is n8n webhook URL correct and running?`);
     }
   });
 }
@@ -232,6 +204,5 @@ function hideMessages() {
 // ===========================
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Test webhook connection on load (optional)
-  console.log('Page loaded. Webhook URL:', WEBHOOK_URL);
+  // Any initialization code can go here
 });
