@@ -7,7 +7,7 @@ const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
 
 // Webhook URL for n8n
-const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook/da09fd3a-d203-4304-8b29-e25f0709dd34';
+const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
 
 // Handle chat message sending
 if (chatSend && chatInput) {
