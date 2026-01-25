@@ -272,18 +272,26 @@ function hideMessages() {
 // ===========================
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Get DOM elements after page loads
-  const chatMessages = document.getElementById('chatMessages');
-  const chatInput = document.getElementById('chatInput');
-  const chatSend = document.getElementById('chatSend');
+  // Get DOM elements after page loads and assign to global variables
+  chatMessages = document.getElementById('chatMessages');
+  chatInput = document.getElementById('chatInput');
+  chatSend = document.getElementById('chatSend');
+
+  console.log('Chat elements loaded:', {chatMessages, chatInput, chatSend});
 
   // Handle chat message sending
   if (chatSend && chatInput) {
-    chatSend.addEventListener('click', sendChatMessage);
+    chatSend.addEventListener('click', function() {
+      console.log('Send button clicked!');
+      sendChatMessage();
+    });
     chatInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         sendChatMessage();
       }
     });
+    console.log('Event listeners attached');
+  } else {
+    console.error('Chat elements not found!');
   }
 });
