@@ -6,24 +6,19 @@
 function getVisitorId() {
   let visitorId = localStorage.getItem('visitorId');
   if (!visitorId) {
-    // Create new ID if first visit
+    // Create new ID if first visit - GUARANTEED UNIQUE
     visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('visitorId', visitorId);
   }
   return visitorId;
 }
 
-// Get or ask for user name (only once)
+// Get user name (optional - can be empty)
 function getUserName() {
   let userName = localStorage.getItem('userName');
   if (!userName) {
-    userName = prompt('What is your name?', 'Guest');
-    if (userName && userName.trim()) {
-      localStorage.setItem('userName', userName);
-    } else {
-      userName = 'Guest';
-      localStorage.setItem('userName', userName);
-    }
+    // Don't ask for name - let them provide it naturally in chat or form
+    userName = null;
   }
   return userName;
 }
@@ -51,7 +46,7 @@ const chatSend = document.getElementById('chatSend');
 const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
 // Get current user info
 const VISITOR_ID = getVisitorId();
-const USER_NAME = getUserName();
+const USER_NAME = getUserName(); // Can be null
 
 // Handle chat message sending
 if (chatSend && chatInput) {
@@ -109,7 +104,8 @@ async function sendChatMessage() {
     if (response.ok) {
       // Message sent successfully
       setTimeout(() => {
-        const botReply = 'Thank you for your message, ' + USER_NAME + '. I\'ll process your request and get back to you with insights about your automation needs.';
+        const greeting = USER_NAME ? 'Thank you, ' + USER_NAME : 'Thank you for your message';
+        const botReply = greeting + '. I\'ll process your request and get back to you with insights about your automation needs.';
         addMessageToChat(botReply, 'bot');
         
         // Add bot message to history
