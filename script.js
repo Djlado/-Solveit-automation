@@ -43,7 +43,8 @@ const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
 
 // Webhook URL for n8n
-const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
+const WEBHOOK_URL = https: 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
+
 // Get current user info
 const VISITOR_ID = getVisitorId();
 const USER_NAME = getUserName(); // Can be null
@@ -102,20 +103,29 @@ async function sendChatMessage() {
     });
 
     if (response.ok) {
-      // Message sent successfully
-      setTimeout(() => {
-        const greeting = USER_NAME ? 'Thank you, ' + USER_NAME : 'Thank you for your message';
-        const botReply = greeting + '. I\'ll process your request and get back to you with insights about your automation needs.';
-        addMessageToChat(botReply, 'bot');
+      // Message sent successfully - wait for n8n response
+      try {
+        const responseData = await response.json();
         
-        // Add bot message to history
-        conversationHistory.push({
-          sender: 'bot',
-          message: botReply,
-          timestamp: new Date().toISOString()
-        });
-        saveConversation(conversationHistory);
-      }, 500);
+        // Extract the AI response from n8n
+        let aiResponse = responseData.message || responseData.aiMessage || responseData.reply || 'No response received';
+        
+        // Display the AI response
+        setTimeout(() => {
+          addMessageToChat(aiResponse, 'bot');
+          
+          // Add bot message to history
+          conversationHistory.push({
+            sender: 'bot',
+            message: aiResponse,
+            timestamp: new Date().toISOString()
+          });
+          saveConversation(conversationHistory);
+        }, 500);
+      } catch (error) {
+        console.error('Error parsing response:', error);
+        addMessageToChat('Message received by n8n. Waiting for AI response...', 'bot');
+      }
     } else {
       addMessageToChat(`Error: Server returned ${response.status} ${response.statusText}`, 'bot');
     }
