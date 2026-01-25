@@ -1,4 +1,45 @@
 // ===========================
+// VISITOR ID & STORAGE SETUP
+// ===========================
+
+// Generate or retrieve unique visitor ID
+function getVisitorId() {
+  let visitorId = localStorage.getItem('visitorId');
+  if (!visitorId) {
+    // Create new ID if first visit
+    visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('visitorId', visitorId);
+  }
+  return visitorId;
+}
+
+// Get or ask for user name (only once)
+function getUserName() {
+  let userName = localStorage.getItem('userName');
+  if (!userName) {
+    userName = prompt('What is your name?', 'Guest');
+    if (userName && userName.trim()) {
+      localStorage.setItem('userName', userName);
+    } else {
+      userName = 'Guest';
+      localStorage.setItem('userName', userName);
+    }
+  }
+  return userName;
+}
+
+// Save conversation to localStorage
+function saveConversation(messages) {
+  localStorage.setItem('chatHistory', JSON.stringify(messages));
+}
+
+// Get conversation from localStorage
+function getConversationHistory() {
+  const history = localStorage.getItem('chatHistory');
+  return history ? JSON.parse(history) : [];
+}
+
+// ===========================
 // CHATBOT HANDLING
 // ===========================
 
@@ -8,6 +49,9 @@ const chatSend = document.getElementById('chatSend');
 
 // Webhook URL for n8n
 const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
+// Get current user info
+const VISITOR_ID = getVisitorId();
+const USER_NAME = getUserName();
 
 // Handle chat message sending
 if (chatSend && chatInput) {
@@ -30,10 +74,26 @@ async function sendChatMessage() {
   // Clear input
   chatInput.value = '';
   
-  // Send to webhook
+  // Get current conversation history
+  let conversationHistory = getConversationHistory();
+  
+  // Add this message to history
+  conversationHistory.push({
+    sender: 'user',
+    message: message,
+    timestamp: new Date().toISOString()
+  });
+  
+  // Save updated history
+  saveConversation(conversationHistory);
+  
+  // Send to webhook with full context
   try {
     const chatData = {
+      visitorId: VISITOR_ID,
+      userName: USER_NAME,
       userMessage: message,
+      conversationHistory: conversationHistory,
       timestamp: new Date().toISOString(),
       type: 'chat'
     };
@@ -48,9 +108,17 @@ async function sendChatMessage() {
 
     if (response.ok) {
       // Message sent successfully
-      // Optionally add a bot response
       setTimeout(() => {
-        addMessageToChat('Thank you for your message. I\'ll process your request and get back to you with insights about your automation needs.', 'bot');
+        const botReply = 'Thank you for your message, ' + USER_NAME + '. I\'ll process your request and get back to you with insights about your automation needs.';
+        addMessageToChat(botReply, 'bot');
+        
+        // Add bot message to history
+        conversationHistory.push({
+          sender: 'bot',
+          message: botReply,
+          timestamp: new Date().toISOString()
+        });
+        saveConversation(conversationHistory);
       }, 500);
     } else {
       addMessageToChat(`Error: Server returned ${response.status} ${response.statusText}`, 'bot');
