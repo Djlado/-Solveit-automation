@@ -38,23 +38,17 @@ function getConversationHistory() {
 // CHATBOT HANDLING
 // ===========================
 
-const chatMessages = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const chatSend = document.getElementById('chatSend'); 
-
 // Webhook URL for n8n
-const WEBHOOK_URL = https: 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
+const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
+
+// Get current user info
+const VISITOR_ID = getVisitorId();
 const USER_NAME = getUserName(); // Can be null
 
-// Handle chat message sending
-if (chatSend && chatInput) {
-  chatSend.addEventListener('click', sendChatMessage);
-  chatInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      sendChatMessage();
-    }
-  });
-}
+// Chat DOM elements (will be set in DOMContentLoaded)
+let chatMessages;
+let chatInput;
+let chatSend;
 
 async function sendChatMessage() {
   const message = chatInput.value.trim();
@@ -278,5 +272,18 @@ function hideMessages() {
 // ===========================
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Any initialization code can go here
+  // Get DOM elements after page loads
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+
+  // Handle chat message sending
+  if (chatSend && chatInput) {
+    chatSend.addEventListener('click', sendChatMessage);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendChatMessage();
+      }
+    });
+  }
 });
