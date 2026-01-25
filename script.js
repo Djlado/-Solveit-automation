@@ -40,13 +40,10 @@ function getConversationHistory() {
 
 const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
-const chatSend = document.getElementById('chatSend');
+const chatSend = document.getElementById('chatSend'); 
 
 // Webhook URL for n8n
 const WEBHOOK_URL = https: 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
-
-// Get current user info
-const VISITOR_ID = getVisitorId();
 const USER_NAME = getUserName(); // Can be null
 
 // Handle chat message sending
@@ -103,14 +100,18 @@ async function sendChatMessage() {
     });
 
     if (response.ok) {
-      // Message sent successfully - wait for n8n response
+      // Message sent successfully - try to get n8n response
+      let aiResponse = null;
+      
       try {
         const responseData = await response.json();
-        
-        // Extract the AI response from n8n
-        let aiResponse = responseData.message || responseData.aiMessage || responseData.reply || 'No response received';
-        
-        // Display the AI response
+        aiResponse = responseData.message || responseData.aiMessage || responseData.reply;
+      } catch (parseError) {
+        console.log('Response received but could not parse JSON');
+      }
+      
+      // Display the AI response if we got one
+      if (aiResponse) {
         setTimeout(() => {
           addMessageToChat(aiResponse, 'bot');
           
@@ -121,13 +122,12 @@ async function sendChatMessage() {
             timestamp: new Date().toISOString()
           });
           saveConversation(conversationHistory);
-        }, 500);
-      } catch (error) {
-        console.error('Error parsing response:', error);
-        addMessageToChat('Message received by n8n. Waiting for AI response...', 'bot');
+        }, 300);
+      } else {
+        console.log('Message sent to n8n successfully');
       }
     } else {
-      addMessageToChat(`Error: Server returned ${response.status} ${response.statusText}`, 'bot');
+      addMessageToChat(`Error: Server returned ${response.status}`, 'bot');
     }
   } catch (error) {
     console.error('Error sending chat message:', error);
