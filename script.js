@@ -38,9 +38,6 @@ function getConversationHistory() {
 // CHATBOT HANDLING
 // ===========================
 
-// Webhook URL for n8n
-const WEBHOOK_URL = 'https://n8n.srv1254694.hstgr.cloud/webhook-test/da09fd3a-d203-4304-8b29-e25f0709dd34';
-
 // Get current user info
 const VISITOR_ID = getVisitorId();
 const USER_NAME = getUserName(); // Can be null
@@ -74,7 +71,7 @@ async function sendChatMessage() {
   // Save updated history
   saveConversation(conversationHistory);
   
-  // Send to webhook with full context
+// Send chat data to backend chat endpoint
   try {
     const chatData = {
       visitorId: VISITOR_ID,
@@ -85,7 +82,7 @@ async function sendChatMessage() {
       type: 'chat'
     };
 
-    const response = await fetch(WEBHOOK_URL, {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -125,7 +122,7 @@ async function sendChatMessage() {
     }
   } catch (error) {
     console.error('Error sending chat message:', error);
-    addMessageToChat(`Sorry, there was an error: ${error.message}. Check that n8n webhook is running.`, 'bot');
+    addMessageToChat(`Sorry, there was an error: ${error.message}. Check that the backend server is running.`, 'bot');
   }
 }
 
@@ -184,13 +181,16 @@ if (automationForm) {
     hideMessages();
 
     try {
-      // Send data to webhook
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+// Send data to backend booking endpoint
+    const response = await fetch('/api/book', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...formData,
+        type: 'automation_request'
+      })
       });
 
       if (response.ok) {
@@ -204,11 +204,11 @@ if (automationForm) {
           document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        showError(`Failed to submit: Server returned ${response.status} ${response.statusText}. Check n8n webhook status.`);
+        showError(`Failed to submit: Server returned ${response.status} ${response.statusText}. Check that the backend server is running.`);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      showError(`Error: ${error.message}. Is n8n webhook URL correct and running?`);
+      showError(`Error: ${error.message}. Is the backend server running?`);
     }
   });
 }
