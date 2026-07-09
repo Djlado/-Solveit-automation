@@ -15,6 +15,8 @@ app.use(express.static(__dirname));
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-mini';
+const GEMINI_API_BASE = process.env.GEMINI_API_BASE || 'https://gemini.googleapis.com/v1';
+const DEFAULT_GEMINI_ALT_BASE = 'https://api.generativeai.google.com/v1';
 const GEMINI_SYSTEM_PROMPT = process.env.GEMINI_SYSTEM_PROMPT || `You are Mr Solveit Automation, an AI assistant for automation consulting, websites, software, CRM systems, and custom business solutions. Always answer as Mr Solveit and use the following pricing guidance when discussing cost.
 
 General pricing policy:
@@ -114,9 +116,27 @@ app.post('/api/chat', async (req, res) => {
   try {
     const prompt = buildGeminiPrompt(userMessage, conversationHistory);
 
-    const response = await fetch(
-      `https://gemini.googleapis.com/v1/models/${GEMINI_MODEL}:generateText`,
-      {
+    const endpoint = `${GEMINI_API_BASE}/models/${GEMINI_MODEL}:generateText`;
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GEMINI_API_KEY}`
+      },
+      body: JSON.stringify({
+        prompt: {
+          text: prompt
+        },
+        maxOutputTokens: 500,
+        temperature: 0.7,
+        topP: 0.95
+      })
+    });
+
+    if (!response.ok && GEMINI_API_BASE === 'https://gemini.googleapis.com/v1') {
+      // Try fallback host if the default URL is not found
+      const fallback = `${DEFAULT_GEMINI_ALT_BASE}/models/${GEMINI_MODEL}:generateText`;
+      const fallbackResponse = await fetch(fallback, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,13 +150,21 @@ app.post('/api/chat', async (req, res) => {
           temperature: 0.7,
           topP: 0.95
         })
+      });
+      if (fallbackResponse.ok) {
+        const data = await fallbackResponse.json();
+        const aiMessage = data?.candidates?.[0]?.content || 'Sorry, I could not generate a response.';
+        return res.json({ message: aiMessage });
       }
-    );
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Gemini API error:', errorText);
-      return res.status(500).json({ message: 'AI service request failed' });
+      return res.status(500).json({
+        message: 'AI service request failed',
+        details: errorText
+      });
     }
 
     const data = await response.json();
@@ -163,10 +191,17 @@ app.post('/api/book', async (req, res) => {
     return res.status(400).json({ message: 'Missing required booking fields' });
   }
 
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.MY_EMAIL) {
-    return res
-      .status(500)
-      .json({ message: 'Missing SMTP configuration or destination email on server' });
+  const missingSmtp = [];
+  if (!process.env.SMTP_HOST) missingSmtp.push('SMTP_HOST');
+  if (!process.env.SMTP_PORT) missingSmtp.push('SMTP_PORT');
+  if (!process.env.SMTP_USER) missingSmtp.push('SMTP_USER');
+  if (!process.env.SMTP_PASS) missingSmtp.push('SMTP_PASS');
+  if (!process.env.MY_EMAIL) missingSmtp.push('MY_EMAIL');
+
+  if (missingSmtp.length > 0) {
+    return res.status(500).json({
+      message: `Missing SMTP configuration on server: ${missingSmtp.join(', ')}`
+    });
   }
 
   try {
