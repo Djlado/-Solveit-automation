@@ -228,7 +228,10 @@ app.post('/api/book', async (req, res) => {
     return res.json({ success: true });
   } catch (error) {
     console.error('Email send failed:', error);
-    return res.status(500).json({ message: 'Failed to send booking email' });
+    return res.status(500).json({
+      message: 'Failed to send booking email',
+      details: error.message
+    });
   }
 });
 
