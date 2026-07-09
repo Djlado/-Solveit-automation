@@ -209,6 +209,9 @@ if (automationForm) {
           const body = await response.json();
           if (body?.message) {
             errorMessage = `Failed to submit: ${body.message}`;
+            if (body?.details) {
+              errorMessage += ` (${body.details})`;
+            }
           }
         } catch (parseError) {
           // ignore parse failure
