@@ -204,7 +204,16 @@ if (automationForm) {
           document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        showError(`Failed to submit: Server returned ${response.status} ${response.statusText}. Check that the backend server is running.`);
+        let errorMessage = `Failed to submit: Server returned ${response.status} ${response.statusText}.`;
+        try {
+          const body = await response.json();
+          if (body?.message) {
+            errorMessage = `Failed to submit: ${body.message}`;
+          }
+        } catch (parseError) {
+          // ignore parse failure
+        }
+        showError(errorMessage);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
