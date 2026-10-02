@@ -3,189 +3,500 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services - Mr Solveit</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#020817">
+  <link rel="icon" type="image/png" href="mr solveit logo.jpg">
+  <title>Services &amp; Pricing | MrSolveit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: 'DM Sans', sans-serif; background: #020817; color: #e2e8f0; }
+    h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; }
+    .site-bg {
+      background-image:
+        radial-gradient(ellipse at 70% 8%, rgba(37, 99, 235, 0.18), transparent 36%),
+        linear-gradient(135deg, #020817 0%, #0b1120 42%, #111827 100%);
+    }
+    .card-surface { background: rgba(15, 23, 42, 0.85); }
+    .category-tab.active { background: #2563eb; color: white; border-color: #2563eb; }
+    .service-card.hidden { display: none; }
+  </style>
 </head>
-<body>
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="nav-container">
-      <div class="nav-brand">Mr Solveit</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="container">
-      <h1>Automation Services</h1>
-      <p class="hero-subtext">Explore automation solutions designed to eliminate manual work and scale your operations.</p>
-    </div>
-  </section>
-
-  <!-- SERVICES OVERVIEW SECTION -->
-  <section>
-    <div class="container">
-      <div class="section-title">
-        <h2>Services Overview</h2>
-        <p>We offer a range of automation services tailored to different business needs. Select the service that best matches your challenge, or apply with a custom automation request.</p>
+<body class="site-bg min-h-screen">
+  <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur-md">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8" aria-label="Main navigation">
+      <a class="brand text-xl font-bold tracking-tight text-white" href="index.html">Mr<span class="text-blue-500">Solveit</span></a>
+      <div class="flex items-center gap-5 text-sm font-medium text-slate-300 sm:gap-9">
+        <a class="transition hover:text-white" href="index.html">Home</a>
+        <a class="text-white" aria-current="page" href="services.html">Services &amp; Pricing</a>
+        <a class="transition hover:text-white" href="contact.html">Contact</a>
       </div>
-    </div>
-  </section>
+    </nav>
+  </header>
 
-  <!-- SERVICES GRID -->
-  <section>
-    <div class="container">
-      <div class="grid grid-3">
-        <!-- Business Process Automation -->
-        <div class="card">
-          <h3>Business Process Automation</h3>
-          <p>Streamline complex workflows by automating multi-step processes across departments. Reduce manual handoffs, minimize errors, and improve efficiency.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Business Process Automation">Apply</button>
+  <main>
+    <section class="border-b border-slate-800">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
+        <p class="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-blue-400">Services &amp; pricing</p>
+        <h1 class="max-w-4xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">Automations and database systems built for <span class="text-blue-400">operational clarity.</span></h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">From Airtable frameworks to dashboard visibility and workflow triggers, we design the systems that keep your business moving without the chaos.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 py-10 sm:px-8">
+      <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4 shadow-2xl shadow-slate-950/30">
+        <label for="searchBar" class="mb-3 block text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Search services</label>
+        <input id="searchBar" type="text" placeholder="Search by keyword, workflow, dashboard, or automation..." class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30" />
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2" id="categoryTabs" aria-label="Service categories">
+        <button class="category-tab active rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="all">All</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="core-db">Core Database Architecture</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="dashboards">Dashboards &amp; Reporting</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="alerts">Notifications &amp; Alerts</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="crm">CRM &amp; Lead Automation</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="integrations">Workflow &amp; API Integrations</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="support">Audits, Maintenance &amp; Support</button>
+        <button class="category-tab rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-300 transition hover:border-blue-500 hover:text-white" data-category="web-design">Category 7: Web Design &amp; Digital Storefronts</button>
+      </div>
+
+      <p id="resultsCount" class="mt-5 text-sm text-slate-400">Showing 36 services.</p>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+      <div class="space-y-10">
+
+        <div class="category-section" data-category="core-db">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Core Database Architecture</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Airtable &amp; Databases</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Single-Table Custom Database" data-description="simple digital whiteboard replacing basic paper lists" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Single-Table Custom Database</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Simple digital whiteboard replacing basic paper lists.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$50 - $100</div>
+              <a href="contact.html?service=single-table-custom-database" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Multi-Department Enterprise Architecture" data-description="unified database across up to 5 departments" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Multi-Department Enterprise Architecture</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Unified database across up to 5 departments.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$150 - $350</div>
+              <a href="contact.html?service=multi-department-enterprise-architecture" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Paper-to-Digital Data Migration" data-description="converting physical files and logs into clean records" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Paper-to-Digital Data Migration</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Converting physical files and logs into clean records.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$60 - $120</div>
+              <a href="contact.html?service=paper-to-digital-data-migration" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Inventory & Asset Tracking System" data-description="real-time stock levels, check-ins, and reorder alerts" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Inventory &amp; Asset Tracking System</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Real-time stock levels, check-ins, and reorder alerts.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$120 - $250</div>
+              <a href="contact.html?service=inventory-and-asset-tracking-system" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Project Management Pipeline Setup" data-description="idea to action board with stage tracking" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Project Management Pipeline Setup</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">"Idea to Action" board with stage tracking.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$100 - $200</div>
+              <a href="contact.html?service=project-management-pipeline-setup" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Custom Client Portal Interface" data-description="secure, isolated views for external clients" data-category="core-db">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Core Database Architecture</p>
+              <h3 class="text-xl font-semibold text-white">Custom Client Portal Interface</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Secure, isolated views for external clients.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$200 - $400</div>
+              <a href="contact.html?service=custom-client-portal-interface" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- AI Assistants -->
-        <div class="card">
-          <h3>AI Assistants</h3>
-          <p>Implement intelligent assistants to handle customer interactions, data processing, and routine inquiries. Enhance response times and reduce support burden.</p>
-          <button class="btn btn-block scroll-to-form" data-service="AI Assistants">Apply</button>
+        <div class="category-section" data-category="dashboards">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Dashboards &amp; Reporting</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Visibility</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Executive Overview Dashboard" data-description="high-level KPI summary cards for owners" data-category="dashboards">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Dashboards &amp; Reporting</p>
+              <h3 class="text-xl font-semibold text-white">Executive Overview Dashboard</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">High-level KPI summary cards for owners.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$100 - $200</div>
+              <a href="contact.html?service=executive-overview-dashboard" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Role-Based Department Views" data-description="filtered workspace views for specific team members" data-category="dashboards">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Dashboards &amp; Reporting</p>
+              <h3 class="text-xl font-semibold text-white">Role-Based Department Views</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Filtered workspace views for specific team members.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$50 - $90</div>
+              <a href="contact.html?service=role-based-department-views" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Real-Time Performance Visualizer" data-description="progress bars and completed-vs-overdue metrics" data-category="dashboards">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Dashboards &amp; Reporting</p>
+              <h3 class="text-xl font-semibold text-white">Real-Time Performance Visualizer</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Progress bars and completed-vs-overdue metrics.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$80 - $150</div>
+              <a href="contact.html?service=real-time-performance-visualizer" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Automated Weekly Summary Reports" data-description="digest reports sent directly to management email" data-category="dashboards">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Dashboards &amp; Reporting</p>
+              <h3 class="text-xl font-semibold text-white">Automated Weekly Summary Reports</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Digest reports sent directly to management email.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$60 - $110</div>
+              <a href="contact.html?service=automated-weekly-summary-reports" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Custom Formula & Rollup Optimization" data-description="advanced calculations across linked records" data-category="dashboards">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Dashboards &amp; Reporting</p>
+              <h3 class="text-xl font-semibold text-white">Custom Formula &amp; Rollup Optimization</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Advanced calculations across linked records.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$40 - $80</div>
+              <a href="contact.html?service=custom-formula-and-rollup-optimization" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- Google Sheets Automation -->
-        <div class="card">
-          <h3>Google Sheets Automation</h3>
-          <p>Automate data collection, consolidation, and reporting in Google Sheets. Connect data sources, eliminate manual entry, and create dynamic dashboards.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Google Sheets Automation">Apply</button>
+        <div class="category-section" data-category="alerts">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Automated Notifications &amp; Alerts</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Follow-up</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Automated Email Assignment Alerts" data-description="instant email when a task is assigned" data-category="alerts">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Notifications &amp; Alerts</p>
+              <h3 class="text-xl font-semibold text-white">Automated Email Assignment Alerts</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Instant email when a task is assigned.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$40 - $75</div>
+              <a href="contact.html?service=automated-email-assignment-alerts" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Deadline Reminder Automations" data-description="automated warnings 24 hours before deadlines" data-category="alerts">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Notifications &amp; Alerts</p>
+              <h3 class="text-xl font-semibold text-white">Deadline Reminder Automations</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Automated warnings 24 hours before deadlines.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$50 - $90</div>
+              <a href="contact.html?service=deadline-reminder-automations" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Overdue Task / Red Flag System" data-description="visual red flags and escalation alerts for missed dates" data-category="alerts">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Notifications &amp; Alerts</p>
+              <h3 class="text-xl font-semibold text-white">Overdue Task / Red Flag System</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Visual red flags and escalation alerts for missed dates.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$50 - $90</div>
+              <a href="contact.html?service=overdue-task-red-flag-system" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="WhatsApp / SMS Alert Integration" data-description="urgent task alerts pushed to mobile devices" data-category="alerts">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Notifications &amp; Alerts</p>
+              <h3 class="text-xl font-semibold text-white">WhatsApp / SMS Alert Integration</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Urgent task alerts pushed to mobile devices.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$75 - $150</div>
+              <a href="contact.html?service=whatsapp-sms-alert-integration" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Slack / Teams Notification Bot" data-description="channel updates when project status changes" data-category="alerts">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Notifications &amp; Alerts</p>
+              <h3 class="text-xl font-semibold text-white">Slack / Teams Notification Bot</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Channel updates when project status changes.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$90 - $180</div>
+              <a href="contact.html?service=slack-teams-notification-bot" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- Email Automation -->
-        <div class="card">
-          <h3>Email Automation</h3>
-          <p>Build sophisticated email workflows for marketing, customer engagement, and notifications. Trigger emails based on actions, segment audiences, and personalize communication.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Email Automation">Apply</button>
+        <div class="category-section" data-category="crm">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">CRM &amp; Lead Automation</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Growth systems</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Lead Capture & Auto-Responder" data-description="instant follow-up emails when forms are submitted" data-category="crm">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">CRM &amp; Lead Automation</p>
+              <h3 class="text-xl font-semibold text-white">Lead Capture &amp; Auto-Responder</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Instant follow-up emails when forms are submitted.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$70 - $130</div>
+              <a href="contact.html?service=lead-capture-and-auto-responder" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Custom Web Form to Database Bridge" data-description="high-converting web intake forms linked to base" data-category="crm">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">CRM &amp; Lead Automation</p>
+              <h3 class="text-xl font-semibold text-white">Custom Web Form to Database Bridge</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">High-converting web intake forms linked to base.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$40 - $80</div>
+              <a href="contact.html?service=custom-web-form-to-database-bridge" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="CRM Pipeline & Contact Manager" data-description="lead tracking from inquiry to closed deal" data-category="crm">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">CRM &amp; Lead Automation</p>
+              <h3 class="text-xl font-semibold text-white">CRM Pipeline &amp; Contact Manager</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Lead tracking from inquiry to closed deal.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$120 - $250</div>
+              <a href="contact.html?service=crm-pipeline-and-contact-manager" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Automated Invoice & Receipt Generation" data-description="PDF generation triggered by completed tasks" data-category="crm">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">CRM &amp; Lead Automation</p>
+              <h3 class="text-xl font-semibold text-white">Automated Invoice &amp; Receipt Generation</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">PDF generation triggered by completed tasks.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$90 - $180</div>
+              <a href="contact.html?service=automated-invoice-and-receipt-generation" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Contract / Document Auto-Fill Workflow" data-description="populate templates automatically from record data" data-category="crm">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">CRM &amp; Lead Automation</p>
+              <h3 class="text-xl font-semibold text-white">Contract/Document Auto-Fill Workflow</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Populate templates automatically from record data.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$100 - $200</div>
+              <a href="contact.html?service=contract-document-auto-fill-workflow" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- Content Systems -->
-        <div class="card">
-          <h3>Content Systems</h3>
-          <p>Automate content creation workflows, publishing pipelines, and distribution. Coordinate across teams and ensure consistent content delivery at scale.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Content Systems">Apply</button>
+        <div class="category-section" data-category="integrations">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Workflow &amp; API Integrations</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Connected systems</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Webhook & API Bridge Setup" data-description="connect two separate apps without manual export/import" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">Webhook &amp; API Bridge Setup</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Connect two separate apps without manual export/import.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$80 - $160</div>
+              <a href="contact.html?service=webhook-and-api-bridge-setup" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Self-Hosted Workflow Engine Setup" data-description="custom n8n automation engine setup" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">Self-Hosted Workflow Engine Setup</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Custom n8n automation engine setup.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$150 - $300</div>
+              <a href="contact.html?service=self-hosted-workflow-engine-setup" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Python Workflow Automation Scripting" data-description="custom backend scripts for complex data logic" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">Python Workflow Automation Scripting</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Custom backend scripts for complex data logic.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$80 - $180</div>
+              <a href="contact.html?service=python-workflow-automation-scripting" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Google Sheets to Database Sync" data-description="two-way synchronization between spreadsheets" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">Google Sheets to Database Sync</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Two-way synchronization between spreadsheets.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$60 - $120</div>
+              <a href="contact.html?service=google-sheets-to-database-sync" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="E-Commerce Order Sync Integration" data-description="automated order routing to fulfillment teams" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">E-Commerce Order Sync Integration</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Automated order routing to fulfillment teams.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$110 - $220</div>
+              <a href="contact.html?service=e-commerce-order-sync-integration" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Social Media Content Scheduler Base" data-description="batch content planning and auto-publish queues" data-category="integrations">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Workflow &amp; API Integrations</p>
+              <h3 class="text-xl font-semibold text-white">Social Media Content Scheduler Base</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Batch content planning and auto-publish queues.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$80 - $150</div>
+              <a href="contact.html?service=social-media-content-scheduler-base" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- Custom Automation -->
-        <div class="card">
-          <h3>Custom Automation</h3>
-          <p>Have a unique challenge that doesn't fit the above categories? We build custom automation solutions tailored to your specific business needs.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Custom Automation">Apply</button>
+        <div class="category-section" data-category="support">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Audits, Maintenance &amp; Support</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Long-term stability</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Operational Workflow Audit & Mapping" data-description="complete bottleneck analysis and system roadmap" data-category="support">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Audits, Maintenance &amp; Support</p>
+              <h3 class="text-xl font-semibold text-white">Operational Workflow Audit &amp; Mapping</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Complete bottleneck analysis and system roadmap.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$50 - $100</div>
+              <a href="contact.html?service=operational-workflow-audit-and-mapping" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Team Onboarding & Interactive Training" data-description="live or recorded training for department heads" data-category="support">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Audits, Maintenance &amp; Support</p>
+              <h3 class="text-xl font-semibold text-white">Team Onboarding &amp; Interactive Training</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Live or recorded training for department heads.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$75 - $150</div>
+              <a href="contact.html?service=team-onboarding-and-interactive-training" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Monthly System Maintenance & Tuning" data-description="ongoing bug fixes and feature tweaks" data-category="support">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Audits, Maintenance &amp; Support</p>
+              <h3 class="text-xl font-semibold text-white">Monthly System Maintenance &amp; Tuning</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Ongoing bug fixes and feature tweaks.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$100 - $250 / month</div>
+              <a href="contact.html?service=monthly-system-maintenance-and-tuning" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Automated Database Backup System" data-description="scheduled backups to cloud storage" data-category="support">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Audits, Maintenance &amp; Support</p>
+              <h3 class="text-xl font-semibold text-white">Automated Database Backup System</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Scheduled backups to cloud storage.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$60 - $110</div>
+              <a href="contact.html?service=automated-database-backup-system" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Complete Multi-App Ecosystem Setup" data-description="full end-to-end business OS buildout" data-category="support">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Audits, Maintenance &amp; Support</p>
+              <h3 class="text-xl font-semibold text-white">Complete Multi-App Ecosystem Setup</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Full end-to-end business OS buildout.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$300 - $600</div>
+              <a href="contact.html?service=complete-multi-app-ecosystem-setup" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
 
-        <!-- CRM Automation -->
-        <div class="card">
-          <h3>CRM Automation</h3>
-          <p>Automate customer relationship management tasks including lead capture, follow-ups, and pipeline management. Keep your CRM data clean and actionable.</p>
-          <button class="btn btn-block scroll-to-form" data-service="CRM Automation">Apply</button>
-        </div>
+        <div class="category-section" data-category="web-design">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-white">Web Design &amp; Digital Storefronts</h2>
+            <span class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-blue-300">Digital presence</span>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Single-Page Landing Page" data-description="high-converting scroll layout to capture leads" data-category="web-design">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Web Design &amp; Digital Storefronts</p>
+              <h3 class="text-xl font-semibold text-white">Single-Page Landing Page</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">High-converting scroll layout to capture leads.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$150 - $250</div>
+              <a href="contact.html?service=single-page-landing-page" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
 
-        <!-- Data Integration -->
-        <div class="card">
-          <h3>Data Integration</h3>
-          <p>Connect disconnected systems and automate data synchronization. Ensure data flows seamlessly between applications without manual effort.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Data Integration">Apply</button>
-        </div>
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="3-Page Professional Business Website" data-description="complete digital presence home about services contact" data-category="web-design">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Web Design &amp; Digital Storefronts</p>
+              <h3 class="text-xl font-semibold text-white">3-Page Professional Business Website</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Complete digital presence (Home, About, Services/Contact).</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$300 - $500</div>
+              <a href="contact.html?service=3-page-professional-business-website" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
 
-        <!-- Workflow Optimization -->
-        <div class="card">
-          <h3>Workflow Optimization</h3>
-          <p>Audit your current workflows and identify automation opportunities. We map your processes and recommend solutions to reduce bottlenecks and delays.</p>
-          <button class="btn btn-block scroll-to-form" data-service="Workflow Optimization">Apply</button>
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Website-to-Database Bridge" data-description="connecting your front-facing website directly to a backend CRM" data-category="web-design">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Web Design &amp; Digital Storefronts</p>
+              <h3 class="text-xl font-semibold text-white">Website-to-Database Bridge</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Connecting your front-facing website directly to a backend CRM.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$100 - $200</div>
+              <a href="contact.html?service=website-to-database-bridge" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="service-card card-surface rounded-2xl border border-slate-800 p-5 shadow-lg shadow-slate-950/20" data-title="Custom Frontend Architecture" data-description="clean html and tailwind css builds with zero bloat" data-category="web-design">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-blue-400">Web Design &amp; Digital Storefronts</p>
+              <h3 class="text-xl font-semibold text-white">Custom Frontend Architecture</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Clean HTML &amp; Tailwind CSS builds with zero bloat.</p>
+              <div class="mt-5 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-300">$250 - $450</div>
+              <a href="contact.html?service=custom-frontend-architecture" class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500">Select Service <span aria-hidden="true">&#8594;</span></a>
+            </article>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- APPLICATION FORM SECTION -->
-  <section id="form-section">
-    <div class="container">
-      <div class="form-container">
-        <div class="form-title">
-          <h2>Apply for Automation</h2>
-          <p>Tell us about your automation needs. The more detail you provide, the better we can assess your challenge.</p>
+    <section class="border-t border-slate-800 bg-slate-950/60">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 sm:px-8 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Next step</p>
+          <h2 class="mt-2 text-3xl font-semibold text-white">Need a custom system?</h2>
         </div>
-
-        <div class="success-message" id="successMessage">
-          <strong>Success!</strong> Your application has been submitted. We'll review your request and get back to you soon.
-        </div>
-
-        <div class="error-message" id="errorMessage"></div>
-
-        <form id="automationForm">
-          <!-- Full Name -->
-          <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" name="fullName" required>
-          </div>
-
-          <!-- Email -->
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-
-          <!-- Automation Type -->
-          <div class="form-group">
-            <label for="automationType">Automation Type *</label>
-            <select id="automationType" name="automationType" required>
-              <option value="">-- Select a Service --</option>
-              <option value="Business Process Automation">Business Process Automation</option>
-              <option value="AI Assistants">AI Assistants</option>
-              <option value="Google Sheets Automation">Google Sheets Automation</option>
-              <option value="Email Automation">Email Automation</option>
-              <option value="Content Systems">Content Systems</option>
-              <option value="CRM Automation">CRM Automation</option>
-              <option value="Data Integration">Data Integration</option>
-              <option value="Workflow Optimization">Workflow Optimization</option>
-              <option value="Custom Automation">Custom Automation</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <!-- Problem Description -->
-          <div class="form-group">
-            <label for="problemDescription">Describe Your Challenge *</label>
-            <textarea id="problemDescription" name="problemDescription" placeholder="What problem are you trying to solve? What's your current workflow? What's causing friction?" required></textarea>
-          </div>
-
-          <!-- Budget (Optional) -->
-          <div class="form-group">
-            <label for="budget">Budget Range (Optional)</label>
-            <input type="text" id="budget" name="budget" placeholder="e.g., $5,000 - $15,000">
-          </div>
-
-          <!-- Additional Notes (Optional) -->
-          <div class="form-group">
-            <label for="additionalNotes">Additional Notes (Optional)</label>
-            <textarea id="additionalNotes" name="additionalNotes" placeholder="Any other details that might help us understand your needs."></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-block form-submit">Submit Application</button>
-        </form>
+        <a href="contact.html" class="inline-flex items-center gap-3 rounded-md bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-500">Book a Systems Audit <span aria-hidden="true">&#8594;</span></a>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-brand">Mr Solveit</div>
-      <p class="footer-text">Your data is handled securely and confidentially. We prioritize the privacy and security of your business information.</p>
+  <footer class="border-t border-slate-800 px-5 py-7 sm:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <a class="brand font-bold text-slate-200" href="index.html">MrSolveit</a>
+      <p>&copy; 2026 MrSolveit. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <a href="https://wa.me/2348106012323" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 transition hover:scale-105">
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-7 w-7 fill-current">
+      <path d="M20.52 3.48A11.7 11.7 0 0 0 12.06 0C5.46 0 .1 5.36.1 11.96c0 2.11.55 4.17 1.59 5.99L0 24l6.19-1.62a11.95 11.95 0 0 0 5.87 1.8h.01c6.6 0 11.96-5.36 11.96-11.96 0-3.2-1.25-6.21-3.48-8.44ZM12.06 21.9c-1.89 0-3.72-.5-5.31-1.45l-.38-.23-3.68.96 1-3.58-.25-.39A9.93 9.93 0 0 1 2.15 12c0-5.49 4.42-9.92 9.91-9.92 2.65 0 5.14 1.03 7.02 2.9A9.86 9.86 0 0 1 12.06 21.9Zm5.46-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.79-1.68-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.8.38-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.35.2 1.86.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35Z"/>
+    </svg>
+  </a>
+
+  <script>
+    const searchBar = document.getElementById('searchBar');
+    const tabs = document.querySelectorAll('.category-tab');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const categorySections = document.querySelectorAll('.category-section');
+    const resultsCount = document.getElementById('resultsCount');
+
+    let activeCategory = 'all';
+
+    function normalizeText(value) {
+      return value.toLowerCase().trim();
+    }
+
+    function updateResultsCount(count) {
+      resultsCount.textContent = `Showing ${count} service${count === 1 ? '' : 's'}.`;
+    }
+
+    function filterServices() {
+      const query = normalizeText(searchBar.value);
+      let visibleCount = 0;
+
+      categorySections.forEach((section) => {
+        const sectionCategory = section.getAttribute('data-category');
+        const cards = section.querySelectorAll('.service-card');
+        let sectionHasVisibleCard = false;
+
+        cards.forEach((card) => {
+          const title = normalizeText(card.dataset.title || '');
+          const description = normalizeText(card.dataset.description || '');
+          const cardCategory = card.getAttribute('data-category');
+          const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory || sectionCategory === activeCategory;
+          const matchesQuery = !query || title.includes(query) || description.includes(query);
+
+          const shouldShow = matchesCategory && matchesQuery;
+          card.classList.toggle('hidden', !shouldShow);
+
+          if (shouldShow) {
+            visibleCount += 1;
+            sectionHasVisibleCard = true;
+          }
+        });
+
+        section.style.display = sectionHasVisibleCard ? 'block' : 'none';
+      });
+
+      updateResultsCount(visibleCount);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        activeCategory = tab.getAttribute('data-category');
+        filterServices();
+      });
+    });
+
+    searchBar.addEventListener('input', filterServices);
+    filterServices();
+  </script>
 </body>
 </html>
